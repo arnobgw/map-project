@@ -1,48 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import 'package:flushbar/flushbar.dart';
+import 'package:map_project/screens/signup.dart';
 
-void main() => runApp(MyApp());
-
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+class Login extends StatefulWidget {
+  Login({Key key}) : super(key: key);
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter login UI',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.red,
-      ),
-      home: MyHomePage(title: 'RE-LIFE Login'),
-    );
-  }
+  _LoginState createState() => _LoginState();
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-  final String title;
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
+class _LoginState extends State<Login> {
   TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
 
   @override
@@ -124,9 +91,15 @@ class _MyHomePageState extends State<MyHomePage> {
             SizedBox(
               height: 15.0,
             ),
-            new InkWell(
-                child: new Text('"Dont have a account ?" Sign Up here'),
-                onTap: () => {}),
+            InkWell(
+              child: new Text('"Dont have a account ?" Sign Up here'),
+              onTap:  () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SigningUp()),
+                );
+              },
+            ),
           ],
         ),
       ),
@@ -221,7 +194,6 @@ class SubPage extends StatelessWidget {
   }
 
   Future navigateToSubPage2(context) async {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => MyHomePage()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
   }
 }

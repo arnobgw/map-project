@@ -1,17 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:map_project/screens/temp.dart';
 
-void main() => runApp(MyApp());
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: SplashScreen(),
-    );
-  }
-}
+import 'package:map_project/screens/login.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -22,7 +12,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(Duration(microseconds: 1000), () => Temp());
+    Timer(Duration(microseconds: 1000), () => Login());
   }
 
   @override

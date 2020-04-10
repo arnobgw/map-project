@@ -1,29 +1,18 @@
-
 import 'package:flutter/material.dart';
+import 'package:map_project/screens/login.dart';
 
-void main() => runApp(MyApp());
+enum AuthMode { SigningUp }
 
-enum AuthMode { SIGNUP }
-
-class MyApp extends StatelessWidget {
+class SigningUp extends StatefulWidget {
+  SigningUp({Key key}) : super(key: key);
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: SignUp(),
-    );
-  }
+  _SigningUpState createState() => _SigningUpState();
 }
 
-class SignUp extends StatefulWidget {
-  @override
-  _SignUpState createState() => _SignUpState();
-}
-
-class _SignUpState extends State<SignUp> {
+class _SigningUpState extends State<SigningUp> {
   double screenHeight;
 
-  AuthMode _authMode = AuthMode.SIGNUP;
+  AuthMode _authMode = AuthMode.SigningUp;
 
   Widget build(BuildContext context) {
     screenHeight = MediaQuery.of(context).size.height;
@@ -33,9 +22,9 @@ class _SignUpState extends State<SignUp> {
           children: <Widget>[
             lowerHalf(context),
             upperHalf(context),
-            _authMode == AuthMode.SIGNUP
-                ? signUpCard(context)
-                : signUpCard(context),
+            _authMode == AuthMode.SigningUp
+                ? SigningUpCard(context)
+                : SigningUpCard(context),
             pageTitle(),
           ],
         ),
@@ -53,16 +42,14 @@ class _SignUpState extends State<SignUp> {
           Text(
             "re-Life",
             style: TextStyle(
-                fontSize: 30,
-                color: Colors.white,
-                fontWeight: FontWeight.bold),
+                fontSize: 30, color: Colors.white, fontWeight: FontWeight.bold),
           )
         ],
       ),
     );
   }
 
-  Widget signUpCard(BuildContext context) {
+  Widget SigningUpCard(BuildContext context) {
     return Column(
       children: <Widget>[
         Container(
@@ -156,7 +143,10 @@ class _SignUpState extends State<SignUp> {
             ),
             FlatButton(
               onPressed: () {
-                setState(() {});
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Login()),
+                );
               },
               textColor: Colors.black,
               child: Text("Login"),
