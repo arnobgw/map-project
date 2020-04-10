@@ -101,7 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/pic.png"),
+            image: AssetImage("assets/images/pic.png"),
             fit: BoxFit.cover,
           ),
         ),
