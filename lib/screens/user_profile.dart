@@ -1,18 +1,8 @@
 import 'package:flutter/material.dart';
-
-void main() => runApp(MyApp());
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: new MyProfile(),
-    );
-  }
-}
+import 'package:map_project/screens/settings.dart';
 
 class MyProfile extends StatefulWidget {
+  MyProfile({Key key}) : super(key: key);
   @override
   _MyProfileState createState() => _MyProfileState();
 }
@@ -121,52 +111,6 @@ class _MyProfileState extends State<MyProfile> {
   }
 }
 
-class Setting extends StatefulWidget {
-  @override
-  _SettingState createState() => _SettingState();
-}
-
-class _SettingState extends State<Setting> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.orange[900],
-          centerTitle: true,
-          title: Text('Settings'),
-        ),
-        body: ListView(children: <Widget>[
-          Card(
-            child: ListTile(
-              leading: Icon(Icons.edit),
-              title: Text('Edit Profile'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => EditProfile()),
-                );
-              },
-            ),
-          ),
-          Card(
-            child: ListTile(
-              leading: Icon(Icons.photo_camera),
-              title: Text('Edit Profile Picture'),
-              onTap: () {},
-            ),
-          ),
-          Card(
-            child: ListTile(
-              leading: Icon(Icons.receipt),
-              title: Text('View Tutorial'),
-              enabled: false,
-              onTap: () {},
-            ),
-          ),
-        ]));
-  }
-}
-
 class EditProfile extends StatefulWidget {
   @override
   _EditProfileState createState() => _EditProfileState();
@@ -181,43 +125,45 @@ class _EditProfileState extends State<EditProfile> {
         centerTitle: true,
         title: Text('Edit Profile'),
       ),
-      body: Column(children: <Widget>[
-        Container(
-          child: Image.network(
-              'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
-        ),
-        TextField(
-          obscureText: true,
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            labelText: 'Username',
+      body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(children: <Widget>[
+          Container(
+            child: Image.asset("assets/images/profile.png"),
           ),
-        ),
-        TextField(
-          obscureText: true,
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            labelText: 'Password',
+          TextField(
+            obscureText: true,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: 'Username',
+            ),
           ),
-        ),
-        TextField(
-          obscureText: true,
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            labelText: 'Email',
+          TextField(
+            obscureText: true,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: 'Password',
+            ),
           ),
-        ),
-        FlatButton(
-          color: Colors.orange[900],
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => MyProfile()),
-            );
-          },
-          child: Text('Save'),
-        ),
-      ]),
+          TextField(
+            obscureText: true,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: 'Email',
+            ),
+          ),
+          FlatButton(
+            color: Colors.orange[900],
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Setting()),
+              );
+            },
+            child: Text('Save'),
+          ),
+        ]),
+      ),
     );
   }
 }
