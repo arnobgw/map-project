@@ -19,7 +19,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flushbar: ^1.9.1
+  flushbar: ^1.10.0
+  splashscreen: ^1.2.0
   
   flutter_echarts: #latest version
   google_fonts: #latest version
@@ -30,6 +31,8 @@ dependencies:
   cupertino_icons: ^0.1.2
   flutter_local_notifications:
   dropdown_banner: ^1.4.0
+  flutter_native_splash:
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter  
