@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:map_project/screens/Dashboard.dart';
 import 'package:splashscreen/splashscreen.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:map_project/screens/financial.dart';
@@ -7,6 +8,7 @@ import 'package:map_project/screens/settings.dart';
 import 'package:map_project/screens/signup.dart';
 import 'package:map_project/screens/Journal.dart';
 import 'package:map_project/screens/todo.dart';
+import 'package:map_project/screens/Dashboard.dart';
 
 import '../main.dart';
 import '../main.dart';
@@ -113,7 +115,7 @@ class SubPage extends StatefulWidget {
 class _SubPageState extends State<SubPage> {
   int _currentIndex = 0;
 
-  final List<Widget> _children = [TodoList(), Financial(), Journal()];
+  final List<Widget> _children = [TodoList(), Dashboard(), Journal()];
 
   void onTabTapped(int index) {
     setState(() {

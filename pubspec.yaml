@@ -21,6 +21,10 @@ dependencies:
     sdk: flutter
   flushbar: ^1.10.0
   splashscreen: ^1.2.0
+  shared_preferences: ^0.5.7
+  basic_utils: ^2.5.3
+  provider: 
+  
   
   flutter_echarts: #latest version
   google_fonts: #latest version

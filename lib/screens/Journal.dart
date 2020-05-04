@@ -2,6 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:flushbar/flushbar.dart';
+import 'package:flutter/material.dart';
+import 'package:splashscreen/splashscreen.dart';
+import 'package:flushbar/flushbar.dart';
+import 'package:map_project/screens/financial.dart';
+import 'package:map_project/screens/home.dart';
+import 'package:map_project/screens/settings.dart';
+import 'package:map_project/screens/signup.dart';
+import 'package:map_project/screens/Journal.dart';
+import 'package:map_project/screens/todo.dart';
 
 class Journal extends StatefulWidget {
   @override

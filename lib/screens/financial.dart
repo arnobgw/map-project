@@ -1,6 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_echarts/flutter_echarts.dart';
+import 'package:flutter/material.dart';
+import 'package:splashscreen/splashscreen.dart';
+import 'package:flushbar/flushbar.dart';
+import 'package:map_project/screens/financial.dart';
+import 'package:map_project/screens/home.dart';
+import 'package:map_project/screens/settings.dart';
+import 'package:map_project/screens/signup.dart';
+import 'package:map_project/screens/Journal.dart';
+import 'package:map_project/screens/todo.dart';
 
 class Financial extends StatefulWidget {
   Financial({Key key}) : super(key: key);
@@ -156,28 +165,60 @@ class SubPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Sub Page'),
+        title: Text('Add '),
         backgroundColor: Colors.redAccent,
+        actions: <Widget>[
+          IconButton(
+            color: Colors.white,
+            icon: Icon(Icons.settings),
+            onPressed: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Setting()));
+            },
+          ),
+        ],
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            RaisedButton(
+            MaterialButton(
               textColor: Colors.white,
               color: Colors.redAccent,
-              child: Text('Scan document'),
+              height: 300,
+              minWidth: 400,
+              shape: CircleBorder(
+                  side: BorderSide(
+                      color: Colors.white,
+                      width: 4.0,
+                      style: BorderStyle.solid)),
+              child: Text(
+                'Scan Bill',
+                style: new TextStyle(
+                    fontWeight: FontWeight.normal, fontSize: 30.0),
+              ),
               onPressed: () {
-                // TODO
+                //Do something
               },
             ),
-            RaisedButton(
+            MaterialButton(
               textColor: Colors.white,
-              color: Colors.redAccent,
-              child: Text('Input Spending'),
+              height: 300,
+              minWidth: 400,
+              color: Colors.blueAccent,
+              child: Text(
+                'Input Spending',
+                style: new TextStyle(
+                    fontWeight: FontWeight.normal, fontSize: 30.0),
+              ),
               onPressed: () {
                 navigateToSubPage2(context);
               },
+              shape: CircleBorder(
+                  side: BorderSide(
+                      color: Colors.white,
+                      width: 4.0,
+                      style: BorderStyle.solid)),
             )
           ],
         ),
@@ -197,7 +238,7 @@ class SubPage2 extends StatelessWidget {
     return new Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('Sub Page'),
+        title: Text('Insert Bill'),
         backgroundColor: Colors.redAccent,
       ),
       body: new Container(
