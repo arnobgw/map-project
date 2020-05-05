@@ -21,6 +21,20 @@ class _FinancialState extends State<Financial> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          title: Text('Add '),
+          backgroundColor: Colors.redAccent,
+          actions: <Widget>[
+            IconButton(
+              color: Colors.white,
+              icon: Icon(Icons.settings),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Setting()));
+              },
+            ),
+          ],
+        ),
         drawer: Container(
           color: Colors.white,
           padding: EdgeInsets.all(20.0),
