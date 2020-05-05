@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:map_project/screens/financial.dart';
+import 'package:map_project/screens/settings.dart';
 
 class Dashboard extends StatefulWidget {
   @override
@@ -24,7 +26,18 @@ class _DashboardState extends State<Dashboard> {
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          navigateToSubPage(context);
+        },
+        child: Icon(Icons.add),
+      ),
     );
+  }
+
+  Future navigateToSubPage2(context) async {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => SubPage2()));
   }
 
   Card makeDashboardItem2(String title, IconData icon) {
@@ -178,7 +191,7 @@ class _TableWidgetState extends State<TableWidget> {
         centerTitle: true,
         title: Container(
           child: Text(
-            'Table Widget',
+            'Income',
             style: TextStyle(
               fontSize: 20.0,
               fontWeight: FontWeight.bold,
@@ -214,14 +227,14 @@ class _TableWidgetState extends State<TableWidget> {
                   margin: EdgeInsets.all(2),
                   color: Colors.red,
                   width: 48.0,
-                  height: 100.0,
+                  height: 48.0,
                   child: Center(
                     child: Text(
-                      "Row 1 \n Element 1",
+                      "500  \n Research",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 6.0,
+                        fontSize: 8.0,
                       ),
                     ),
                   ),
@@ -232,15 +245,15 @@ class _TableWidgetState extends State<TableWidget> {
                 child: Container(
                   margin: EdgeInsets.all(2),
                   color: Colors.orange,
-                  width: 50.0,
-                  height: 50.0,
+                  width: 48.0,
+                  height: 48.0,
                   child: Center(
                     child: Text(
-                      "Row 1 \n Element 2",
+                      "200  \n Innates",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 6.0,
+                        fontSize: 8.0,
                       ),
                     ),
                   ),
@@ -255,11 +268,11 @@ class _TableWidgetState extends State<TableWidget> {
                   height: 50.0,
                   child: Center(
                     child: Text(
-                      "Row 1 \n Element 3",
+                      "200 \n University Fund",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 6.0,
+                        fontSize: 8.0,
                       ),
                     ),
                   ),
@@ -274,15 +287,15 @@ class _TableWidgetState extends State<TableWidget> {
                 child: Container(
                   margin: EdgeInsets.all(2),
                   color: Colors.lightBlue,
-                  width: 50.0,
+                  width: 48.0,
                   height: 48.0,
                   child: Center(
                     child: Text(
-                      "Row 2 \n Element 1",
+                      "900 \n Grab",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 6.0,
+                        fontSize: 8.0,
                       ),
                     ),
                   ),
@@ -297,11 +310,11 @@ class _TableWidgetState extends State<TableWidget> {
                   height: 48.0,
                   child: Center(
                     child: Text(
-                      "Row 2 \n Element 2",
+                      "50 \n Allowance",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 6.0,
+                        fontSize: 8.0,
                       ),
                     ),
                   ),
@@ -313,14 +326,14 @@ class _TableWidgetState extends State<TableWidget> {
                   margin: EdgeInsets.all(2),
                   color: Colors.blue,
                   width: 50.0,
-                  height: 100.0,
+                  height: 50.0,
                   child: Center(
                     child: Text(
-                      "Row 2 \n Element 3",
+                      "10 \n Coupons",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 6.0,
+                        fontSize: 8.0,
                       ),
                     ),
                   ),
@@ -331,5 +344,121 @@ class _TableWidgetState extends State<TableWidget> {
         ),
       ),
     );
+  }
+}
+
+Future navigateToSubPage(context) async {
+  Navigator.push(context, MaterialPageRoute(builder: (context) => SubPage()));
+}
+
+class SubPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Add '),
+        backgroundColor: Colors.redAccent,
+        actions: <Widget>[
+          IconButton(
+            color: Colors.white,
+            icon: Icon(Icons.settings),
+            onPressed: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Setting()));
+            },
+          ),
+        ],
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            MaterialButton(
+              textColor: Colors.white,
+              color: Colors.redAccent,
+              height: 300,
+              minWidth: 400,
+              shape: CircleBorder(
+                  side: BorderSide(
+                      color: Colors.white,
+                      width: 4.0,
+                      style: BorderStyle.solid)),
+              child: Text(
+                'Scan Bill',
+                style: new TextStyle(
+                    fontWeight: FontWeight.normal, fontSize: 30.0),
+              ),
+              onPressed: () {
+                //Do something
+              },
+            ),
+            MaterialButton(
+              textColor: Colors.white,
+              height: 300,
+              minWidth: 400,
+              color: Colors.blueAccent,
+              child: Text(
+                'Input Spending',
+                style: new TextStyle(
+                    fontWeight: FontWeight.normal, fontSize: 30.0),
+              ),
+              onPressed: () {
+                navigateToSubPage2(context);
+              },
+              shape: CircleBorder(
+                  side: BorderSide(
+                      color: Colors.white,
+                      width: 4.0,
+                      style: BorderStyle.solid)),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Future navigateToSubPage2(context) async {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => SubPage2()));
+  }
+}
+
+class SubPage2 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return new Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        title: Text('Insert Bill'),
+        backgroundColor: Colors.redAccent,
+      ),
+      body: new Container(
+          padding: const EdgeInsets.all(40.0),
+          child: new Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              new TextField(
+                decoration:
+                    new InputDecoration(labelText: "Enter your spending"),
+                keyboardType: TextInputType.number,
+                inputFormatters: <TextInputFormatter>[
+                  WhitelistingTextInputFormatter.digitsOnly
+                ], // Only numbers can be entered
+              ),
+              RaisedButton(
+                textColor: Colors.white,
+                color: Colors.redAccent,
+                child: Text('Submit'),
+                onPressed: () {
+                  navigateToSubPage2(context);
+                },
+              )
+            ],
+          )),
+    );
+  }
+
+  Future navigateToSubPage2(context) async {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => SubPage()));
   }
 }
