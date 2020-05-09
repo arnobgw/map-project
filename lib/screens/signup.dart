@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:map_project/Models/mock_Data.dart';
 import 'package:map_project/screens/home.dart';
 import 'package:map_project/screens/login.dart';
-import 'package:map_project/screens/settings.dart';
 
 enum AuthMode { SigningUp }
 

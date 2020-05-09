@@ -1,18 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:map_project/Models/mock_Data.dart';
 import 'package:map_project/screens/Dashboard.dart';
-import 'package:splashscreen/splashscreen.dart';
 import 'package:flushbar/flushbar.dart';
-import 'package:map_project/screens/financial.dart';
 import 'package:map_project/screens/home.dart';
 import 'package:map_project/screens/settings.dart';
 import 'package:map_project/screens/signup.dart';
 import 'package:map_project/screens/Journal.dart';
 import 'package:map_project/screens/todo.dart';
-import 'package:map_project/screens/Dashboard.dart';
-
-import '../main.dart';
-import '../main.dart';
 
 Flushbar flush;
 bool _wasButtonClicked;

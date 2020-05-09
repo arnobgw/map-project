@@ -1,11 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:flushbar/flushbar.dart';
-import 'package:flutter/material.dart';
-import 'package:map_project/models/todo.dart';
-import 'package:map_project/models/Task.dart';
-import 'package:map_project/models/mock_Data.dart';
-
 class TaskListScreen extends StatefulWidget {
   @override
   _TaskListScreenState createState() => _TaskListScreenState();
@@ -21,6 +15,7 @@ class _TaskListScreenState extends State<TaskListScreen> {
         centerTitle: true,
       ),
       body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
         child: Container(
             color: Colors.black,
             padding: EdgeInsets.all(35),

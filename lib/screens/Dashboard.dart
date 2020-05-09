@@ -589,49 +589,51 @@ class SubPage extends StatelessWidget {
           ),
         ],
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            MaterialButton(
-              textColor: Colors.white,
-              color: Colors.redAccent,
-              height: 300,
-              minWidth: 400,
-              shape: CircleBorder(
-                  side: BorderSide(
-                      color: Colors.white,
-                      width: 4.0,
-                      style: BorderStyle.solid)),
-              child: Text(
-                'Scan Bill',
-                style: new TextStyle(
-                    fontWeight: FontWeight.normal, fontSize: 30.0),
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              MaterialButton(
+                textColor: Colors.white,
+                color: Colors.redAccent,
+                height: 300,
+                minWidth: 400,
+                shape: CircleBorder(
+                    side: BorderSide(
+                        color: Colors.white,
+                        width: 4.0,
+                        style: BorderStyle.solid)),
+                child: Text(
+                  'Scan Bill',
+                  style: new TextStyle(
+                      fontWeight: FontWeight.normal, fontSize: 30.0),
+                ),
+                onPressed: () {
+                  //Do something
+                },
               ),
-              onPressed: () {
-                //Do something
-              },
-            ),
-            MaterialButton(
-              textColor: Colors.white,
-              height: 300,
-              minWidth: 400,
-              color: Colors.blueAccent,
-              child: Text(
-                'Input Spending',
-                style: new TextStyle(
-                    fontWeight: FontWeight.normal, fontSize: 30.0),
-              ),
-              onPressed: () {
-                navigateToSubPage2(context);
-              },
-              shape: CircleBorder(
-                  side: BorderSide(
-                      color: Colors.white,
-                      width: 4.0,
-                      style: BorderStyle.solid)),
-            )
-          ],
+              MaterialButton(
+                textColor: Colors.white,
+                height: 300,
+                minWidth: 400,
+                color: Colors.blueAccent,
+                child: Text(
+                  'Input Spending',
+                  style: new TextStyle(
+                      fontWeight: FontWeight.normal, fontSize: 30.0),
+                ),
+                onPressed: () {
+                  navigateToSubPage2(context);
+                },
+                shape: CircleBorder(
+                    side: BorderSide(
+                        color: Colors.white,
+                        width: 4.0,
+                        style: BorderStyle.solid)),
+              )
+            ],
+          ),
         ),
       ),
     );

@@ -16,7 +16,7 @@ Statistical view: Our application will give a statistical estimate of the users 
 4. Golam Wasy Arnob - A18CS0302
 
 ### Video Link
-YouTube: https://www.youtube.com/watch?v=NLw2gt99h58
+YouTube: https://youtu.be/4KB0SULHzbU
 
 ### Git Repository Link
 GitHub: https://github.com/arnobgw/map-project.git
