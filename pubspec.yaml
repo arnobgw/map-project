@@ -14,12 +14,15 @@ description: A new Flutter project.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.2.0 <3.0.0"
+  sdk: ">=2.2.2 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  flushbar: 1.9.1
+  flushbar:
+    git:
+      url: https://github.com/AndreHaueisen/flushbar
+      ref: master
   splashscreen: ^1.2.0
   shared_preferences: ^0.5.7
   basic_utils: ^2.5.3

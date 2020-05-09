@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:map_project/Models/mock_Data.dart';
 import 'package:map_project/screens/home.dart';
 import 'package:map_project/screens/login.dart';
 import 'package:map_project/screens/settings.dart';
@@ -126,7 +127,8 @@ class _SigningUpState extends State<SigningUp> {
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => Home()),
+                            MaterialPageRoute(
+                                builder: (context) => Home(mockData)),
                           );
                         },
                       ),
@@ -203,7 +205,7 @@ class _SigningUpState extends State<SigningUp> {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => Home()),
+                      MaterialPageRoute(builder: (context) => Home(mockData)),
                     );
                   },
                   child: Container(
@@ -354,7 +356,7 @@ class _GoogleSignUpState extends State<GoogleSignUp> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => Home()),
+                        MaterialPageRoute(builder: (context) => Home(mockData)),
                       );
                     },
                   ),
@@ -414,7 +416,7 @@ class _FBSignUpState extends State<FBSignUp> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => Home()),
+                        MaterialPageRoute(builder: (context) => Home(mockData)),
                       );
                     },
                   ),
