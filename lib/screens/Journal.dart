@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:splashscreen/splashscreen.dart';
-import 'package:flushbar/flushbar.dart';
+
 import 'package:map_project/screens/financial.dart';
 import 'package:map_project/screens/home.dart';
 import 'package:map_project/screens/settings.dart';
@@ -86,34 +86,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 width: 300,
                 height: 400,
-                alignment: Alignment.center,
-              ),
-              Container(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    MaterialButton(
-                      child: Text(
-                        '🙁',
-                        style: TextStyle(fontSize: 50.0),
-                      ),
-                      onPressed: () => null,
-                      height: 100.0,
-                    ),
-                    MaterialButton(
-                        child: Text(
-                          '😐',
-                          style: TextStyle(fontSize: 50.0),
-                        ),
-                        onPressed: () => null),
-                    MaterialButton(
-                        child: Text(
-                          '😄',
-                          style: TextStyle(fontSize: 50.0),
-                        ),
-                        onPressed: () => null),
-                  ],
-                ),
                 alignment: Alignment.center,
               ),
               Container(

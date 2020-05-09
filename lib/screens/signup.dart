@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:map_project/Models/mock_Data.dart';
+import 'package:map_project/screens/home.dart';
 import 'package:map_project/screens/login.dart';
+import 'package:map_project/screens/settings.dart';
 
 enum AuthMode { SigningUp }
 
@@ -121,7 +124,13 @@ class _SigningUpState extends State<SigningUp> {
                             left: 38, right: 38, top: 15, bottom: 15),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5)),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Home(mockData)),
+                          );
+                        },
                       ),
                     ],
                   ),
@@ -130,27 +139,140 @@ class _SigningUpState extends State<SigningUp> {
             ),
           ),
         ),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
+        Column(
           children: <Widget>[
-            SizedBox(
-              height: 40,
+//Login Via Google
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                SizedBox(height: 20.0),
+                new GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => GoogleSignUp()),
+                    );
+                  },
+                  child: Container(
+                    margin: EdgeInsets.only(top: 10),
+                    height: 50.0,
+                    width: 300,
+                    color: Colors.transparent,
+                    child: Container(
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                              color: Colors.black,
+                              style: BorderStyle.solid,
+                              width: 1.0),
+                          color: Colors.transparent,
+                          borderRadius: BorderRadius.circular(40.0)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Center(
+                            child: Material(
+                              shape: CircleBorder(),
+                              clipBehavior: Clip.hardEdge,
+                              color: Colors.transparent,
+                              child: Ink.image(
+                                  image: AssetImage('assets/images/google.png'),
+                                  width: 40,
+                                  height: 40),
+                            ),
+                          ),
+                          SizedBox(width: 10.0),
+                          Center(
+                            child: Text('Log in with facebook',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'Montserrat')),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
-            Text(
-              "Already have an account?",
-              style: TextStyle(color: Colors.grey),
+//Login Via Facebook
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                SizedBox(height: 20.0),
+                new GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Home(mockData)),
+                    );
+                  },
+                  child: Container(
+                    margin: EdgeInsets.only(top: 10),
+                    height: 50.0,
+                    width: 300,
+                    color: Colors.transparent,
+                    child: Container(
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                              color: Colors.black,
+                              style: BorderStyle.solid,
+                              width: 1.0),
+                          color: Colors.blueAccent,
+                          borderRadius: BorderRadius.circular(40.0)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Center(
+                            child: Material(
+                              shape: CircleBorder(),
+                              clipBehavior: Clip.hardEdge,
+                              color: Colors.blueAccent,
+                              child: Ink.image(
+                                  image: AssetImage('assets/images/fblogo.png'),
+                                  width: 40,
+                                  height: 40),
+                            ),
+                          ),
+                          SizedBox(width: 10.0),
+                          Center(
+                            child: Text('Log in with facebook',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'Montserrat')),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
-            FlatButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Login()),
-                );
-              },
-              textColor: Colors.black,
-              child: Text("Login"),
-            )
+
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  "Already have an account?",
+                  style: TextStyle(color: Colors.grey),
+                ),
+                FlatButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Login()),
+                    );
+                  },
+                  textColor: Colors.black,
+                  child: Text("Login"),
+                )
+              ],
+            ),
           ],
         ),
         Align(
@@ -184,6 +306,126 @@ class _SigningUpState extends State<SigningUp> {
     return Align(
       alignment: Alignment.bottomCenter,
       child: Container(height: screenHeight / 2, color: Colors.white),
+    );
+  }
+}
+
+class GoogleSignUp extends StatefulWidget {
+  @override
+  _GoogleSignUpState createState() => _GoogleSignUpState();
+}
+
+class _GoogleSignUpState extends State<GoogleSignUp> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(30),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              SizedBox(
+                height: 15,
+              ),
+              TextFormField(
+                decoration: InputDecoration(
+                    labelText: "Your Email", hasFloatingPlaceholder: true),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              TextFormField(
+                decoration: InputDecoration(
+                    labelText: "Password", hasFloatingPlaceholder: true),
+              ),
+              SizedBox(
+                height: 40,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  FlatButton(
+                    child: Text("Login With Google"),
+                    color: Colors.green,
+                    textColor: Colors.white,
+                    padding: EdgeInsets.only(
+                        left: 38, right: 38, top: 15, bottom: 15),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5)),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Home(mockData)),
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class FBSignUp extends StatefulWidget {
+  @override
+  _FBSignUpState createState() => _FBSignUpState();
+}
+
+class _FBSignUpState extends State<FBSignUp> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(30),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              SizedBox(
+                height: 15,
+              ),
+              TextFormField(
+                decoration: InputDecoration(
+                    labelText: "Your Email", hasFloatingPlaceholder: true),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              TextFormField(
+                decoration: InputDecoration(
+                    labelText: "Password", hasFloatingPlaceholder: true),
+              ),
+              SizedBox(
+                height: 40,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  FlatButton(
+                    child: Text("Login With Google"),
+                    color: Colors.green,
+                    textColor: Colors.white,
+                    padding: EdgeInsets.only(
+                        left: 38, right: 38, top: 15, bottom: 15),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5)),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Home(mockData)),
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:map_project/Models/mock_Data.dart';
 import 'package:map_project/screens/Dashboard.dart';
 import 'package:splashscreen/splashscreen.dart';
 import 'package:flushbar/flushbar.dart';
@@ -12,6 +13,9 @@ import 'package:map_project/screens/Dashboard.dart';
 
 import '../main.dart';
 import '../main.dart';
+
+Flushbar flush;
+bool _wasButtonClicked;
 
 class Login extends StatefulWidget {
   Login({Key key}) : super(key: key);
@@ -115,7 +119,7 @@ class SubPage extends StatefulWidget {
 class _SubPageState extends State<SubPage> {
   int _currentIndex = 0;
 
-  final List<Widget> _children = [TodoList(), Dashboard(), Journal()];
+  final List<Widget> _children = [Home(mockData), Dashboard(), Journal()];
 
   void onTabTapped(int index) {
     setState(() {
@@ -132,10 +136,10 @@ class _SubPageState extends State<SubPage> {
         actions: <Widget>[
           IconButton(
             color: Colors.white,
-            icon: Icon(Icons.settings),
+            icon: Icon(Icons.list),
             onPressed: () {
               Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Setting()));
+                  context, MaterialPageRoute(builder: (context) => TodoList()));
             },
           ),
         ],
@@ -161,14 +165,72 @@ class _SubPageState extends State<SubPage> {
         ],
       ),
       body: _children[_currentIndex],
-      drawer: RaisedButton(
-          child: Text(
-            "log out",
-            textAlign: TextAlign.center,
-          ),
-          onPressed: () {
-            navigateToSubPage2(context);
-          }),
+      drawer: Drawer(
+        child: ListView(
+          children: <Widget>[
+            UserAccountsDrawerHeader(
+              accountName: Text("User"),
+              accountEmail: Text("user1@gmail.com"),
+              currentAccountPicture: CircleAvatar(
+                backgroundColor:
+                    Theme.of(context).platform == TargetPlatform.iOS
+                        ? Colors.blue
+                        : Colors.white,
+                child: Text(
+                  "A",
+                  style: TextStyle(fontSize: 40.0),
+                ),
+              ),
+            ),
+            ListTile(
+              title: Text("Settings"),
+              trailing: Icon(Icons.arrow_forward),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Setting()));
+              },
+            ),
+            ListTile(
+                title: Text("Log out"),
+                trailing: Icon(Icons.arrow_forward),
+                onTap: () {
+                  navigateToSubPage2(context);
+                }),
+            ListTile(
+              title: Text(
+                "Push Notification",
+              ),
+              trailing: Icon(Icons.arrow_downward),
+              onTap: () {
+                flush = Flushbar<bool>(
+                  flushbarPosition: FlushbarPosition.TOP,
+                  title: "Hey User",
+                  message: "Have you added today's journal ?",
+                  icon: Icon(
+                    Icons.info_outline,
+                    color: Colors.blue,
+                  ),
+                  mainButton: FlatButton(
+                    onPressed: () {
+                      flush.dismiss(true); // result = true
+                    },
+                    child: Text(
+                      "ADD",
+                      style: TextStyle(color: Colors.black),
+                    ),
+                  ),
+                ) // <bool> is the type of the result passed to dismiss() and collected by show().then((result){})
+                  ..show(context).then((result) {
+                    {
+                      // setState() is optional here
+                      _wasButtonClicked = result;
+                    }
+                  });
+              },
+            ),
+          ],
+        ),
+      ),
     );
   }
 
