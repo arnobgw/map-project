@@ -46,6 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
+
                 Text(
                   'Write Your Story',
                   style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
