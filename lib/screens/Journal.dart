@@ -63,57 +63,59 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomPadding: false,
-      body: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("assets/images/stars.png"),
-              fit: BoxFit.cover,
+      body: SingleChildScrollView(
+              child: Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/images/stars.png"),
+                fit: BoxFit.cover,
+              ),
             ),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Container(
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage("assets/images/book.png"),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                child: TextField(
-                  textAlign: TextAlign.center,
-                  maxLines: 30,
-                ),
-                width: 300,
-                height: 400,
-                alignment: Alignment.center,
-              ),
-              Container(
-                padding: EdgeInsets.all(1),
-                decoration: BoxDecoration(
-                  color: Colors.green,
-                  boxShadow: null,
-                  border: Border.all(
-                    color: Colors.green,
-                    width: 10,
-                  ),
-                  borderRadius: BorderRadius.circular(0),
-                ),
-                child: MaterialButton(
-                    child: Text(
-                      'Save Your Journal',
-                      style: TextStyle(
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage("assets/images/book.png"),
+                      fit: BoxFit.cover,
                     ),
-                    onPressed: () => null),
-                width: 500,
-                height: 50,
-                alignment: Alignment.center,
-              ),
-            ],
-          )),
+                  ),
+                  child: TextField(
+                    textAlign: TextAlign.center,
+                    maxLines: 30,
+                  ),
+                  width: 300,
+                  height: 400,
+                  alignment: Alignment.center,
+                ),
+                Container(
+                  padding: EdgeInsets.all(1),
+                  decoration: BoxDecoration(
+                    color: Colors.green,
+                    boxShadow: null,
+                    border: Border.all(
+                      color: Colors.green,
+                      width: 10,
+                    ),
+                    borderRadius: BorderRadius.circular(0),
+                  ),
+                  child: MaterialButton(
+                      child: Text(
+                        'Save Your Journal',
+                        style: TextStyle(
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      ),
+                      onPressed: () => null),
+                  width: 500,
+                  height: 50,
+                  alignment: Alignment.center,
+                ),
+              ],
+            )),
+      ),
     );
   }
 }

@@ -106,8 +106,7 @@ class _LoginState extends State<Login> {
   }
 
   Future navigateToSubPage2(context) async {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => AfterSplash()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => AfterSplash()));
   }
 }
 
@@ -248,6 +247,7 @@ class AfterSplash extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Scaffold(
         body: Container(
+          height: MediaQuery.of(context).size.height,
             alignment: Alignment.center,
             child:
                 Column(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -262,19 +262,19 @@ class AfterSplash extends StatelessWidget {
                 child: Column(children: [
                   new Image.asset(
                     'assets/images/fin.png',
-                    height: 80.0,
+                    height: MediaQuery.of(context).size.height * 0.1,
                     width: 90.0,
                   ),
                   Text(
                     "Have a big picture view of your finance",
                     style: new TextStyle(
-                        fontWeight: FontWeight.normal, fontSize: 20.0),
+                        fontWeight: FontWeight.normal, fontSize: 15.0),
                   ),
                   Text(
                     "Your financian records are tracked and monitorized to give you a big picture of what us going on in your waller ",
                     textAlign: TextAlign.center,
                     style: new TextStyle(
-                        fontWeight: FontWeight.normal, fontSize: 15.0),
+                        fontWeight: FontWeight.normal, fontSize: 10.0),
                   ),
                 ]),
               ),
@@ -289,20 +289,20 @@ class AfterSplash extends StatelessWidget {
                   child: Column(children: [
                     new Image.asset(
                       'assets/images/journal.png',
-                      height: 80.0,
+                      height: MediaQuery.of(context).size.height * 0.05,
                       width: 90.0,
                     ),
                     new Text(
                       "Write pieces of your life , Everyday",
                       textAlign: TextAlign.center,
                       style: new TextStyle(
-                          fontWeight: FontWeight.normal, fontSize: 20.0),
+                          fontWeight: FontWeight.normal, fontSize: 15.0),
                     ),
                     new Text(
                       "Have brief moment to reflect your feelings and write it down , so that you can always get back to things that inspire you",
                       textAlign: TextAlign.center,
                       style: new TextStyle(
-                          fontWeight: FontWeight.normal, fontSize: 15.0),
+                          fontWeight: FontWeight.normal, fontSize: 10.0),
                     ),
                   ])),
               new Container(
@@ -316,19 +316,22 @@ class AfterSplash extends StatelessWidget {
                   child: Column(children: [
                     new Image.asset(
                       'assets/images/Reminder.png',
-                      height: 80.0,
+                      height: MediaQuery.of(context).size.height * 0.1,
                       width: 90.0,
                     ),
                     new Text(
                       "Control your day, Task by task",
                       style: new TextStyle(
-                          fontWeight: FontWeight.normal, fontSize: 20.0),
+                          fontWeight: FontWeight.normal, fontSize: 15.0),
                     ),
                     new Text(
                       "All of your tasks has important value to you , remember your task in a minimal way with keeping only tasks in focus                                        ",
                       textAlign: TextAlign.center,
                       style: new TextStyle(
-                          fontWeight: FontWeight.normal, fontSize: 15.0),
+                          fontWeight: FontWeight.normal, fontSize: 10.0),
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.1,
                     ),
                     MaterialButton(
                         color: Colors.red,
@@ -340,7 +343,7 @@ class AfterSplash extends StatelessWidget {
                         onPressed: () {
                           navigateToSubPage3(context);
                         },
-                        height: 40,
+                        height: MediaQuery.of(context).size.height * 0.1,
                         minWidth: 500,
                         padding: EdgeInsets.all(20.0)),
                   ])),
