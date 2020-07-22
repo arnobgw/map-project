@@ -19,6 +19,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  firebase_core: ^0.4.0+9
+  cloud_firestore: ^0.13.7 
   flushbar: ^1.9.1
   splashscreen: ^1.2.0
   shared_preferences: ^0.5.7

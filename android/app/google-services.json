@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1040812706624",
+    "firebase_url": "https://map-finance.firebaseio.com",
+    "project_id": "map-finance",
+    "storage_bucket": "map-finance.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1040812706624:android:a749406b31391a85cfc8a5",
+        "android_client_info": {
+          "package_name": "com.example.map_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1040812706624-4638qh1s7bn85k6655jpv13hg67fb4kk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAvuHRSd-xmgcykA8p6o7LeHWpNgUfKg_M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1040812706624-4638qh1s7bn85k6655jpv13hg67fb4kk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

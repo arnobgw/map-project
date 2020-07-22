@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:map_project/screens/financial.dart';
 import 'package:map_project/screens/settings.dart';
+import '../Models/Bill.dart';
+import '../Models/finance.dart';
 
 class Dashboard extends StatefulWidget {
   @override
@@ -9,6 +11,8 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
+  //get the document(finance for one user) from the database
+  Finance finance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,8 +44,10 @@ class _DashboardState extends State<Dashboard> {
   }
 
   Future navigateToSubPage2(context) async {
-    Navigator.push(
+    final result = await Navigator.push(
         context, MaterialPageRoute(builder: (context) => SubPage2()));
+    finance.bills.add(result);
+    //update the document setDocument
   }
 
   Card makeDashboardItem2(String title, IconData icon) {
@@ -404,6 +410,13 @@ class _BillsState extends State<Bills> {
   bool _isBorderEnabled = false;
   var _actionIcon = Icons.border_all;
 
+  List<Bill> bills = [
+    Bill(100, 'repair'),
+    Bill(100, 'repair'),
+    Bill(100, 'repair'),
+    Bill(100, 'repair'),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -660,8 +673,7 @@ class SubPage2 extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               new TextField(
-                decoration:
-                    new InputDecoration(labelText: "Enter your spending"),
+                decoration: InputDecoration(labelText: "Enter your spending"),
                 keyboardType: TextInputType.number,
                 inputFormatters: <TextInputFormatter>[
                   WhitelistingTextInputFormatter.digitsOnly
@@ -681,6 +693,8 @@ class SubPage2 extends StatelessWidget {
   }
 
   Future navigateToSubPage2(context) async {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => SubPage()));
+    Bill bill = Bill(100, 'wf');
+    // Navigator.push(context, MaterialPageRoute(builder: (context) => SubPage()));
+    Navigator.pop(context, bill);
   }
 }

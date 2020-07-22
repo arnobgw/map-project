@@ -1,0 +1,20 @@
+{
+    "finance": [
+        {
+            "generated01": {
+                "ownerID": "user01",
+                "buddget": 1000,
+                "bills": [
+                    {
+                        "name": "repair",
+                        "amount": 100
+                    },
+                    {
+                        "name": "repair",
+                        "amount": 100
+                    }
+                ]
+            }
+        }
+    ]
+}
