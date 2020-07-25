@@ -1,0 +1,40 @@
+# REST API Server on Local Firebase
+ @baseUrl = http://localhost:5001/prj-backend/us-central1/api
+
+# REST API Server on Live Firebase
+#@baseUrl = https://us-central1-prj-backend.cloudfunctions.net/api
+
+### Getting the list of tasks
+GET {{baseUrl}}/tasks
+
+###  Getting a task of given id
+GET {{baseUrl}}/tasks/HXHpok2n641QmTJEvREm
+
+###  Create a new task
+POST {{baseUrl}}/tasks
+Content-Type: application/json
+
+{
+    "title": "Important Tasks of Today",
+    "completed" : false
+}
+
+### Update the status of a given task (whether is completed or not)
+PATCH {{baseUrl}}/tasks/HXHpok2n641QmTJEvREm
+Content-Type: application/json
+
+{
+    "completed":true
+}
+
+
+### Replace the entire fields of a given task
+PUT {{baseUrl}}/tasks/H7kv4nPyQKXodwAui0qu
+Content-Type: application/json
+
+{
+    "completed": true
+}
+
+### Deleting a given task
+DELETE {{baseUrl}}/tasks/H7kv4nPyQKXodwAui0qu
