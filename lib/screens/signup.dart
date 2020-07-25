@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:map_project/Models/mock_Data.dart';
+import 'package:map_project/models/user_model.dart';
 import 'package:map_project/screens/home.dart';
 import 'package:map_project/screens/login.dart';
+import 'package:map_project/services/user_data_service.dart';
 
 enum AuthMode { SigningUp }
 
@@ -13,6 +15,10 @@ class SigningUp extends StatefulWidget {
 
 class _SigningUpState extends State<SigningUp> {
   double screenHeight;
+
+  final inputName = TextEditingController();
+  final inputEmail = TextEditingController();
+  final inputPassword = TextEditingController();
 
   AuthMode _authMode = AuthMode.SigningUp;
 
@@ -82,6 +88,7 @@ class _SigningUpState extends State<SigningUp> {
                     height: 15,
                   ),
                   TextFormField(
+                    controller: inputName,
                     decoration: InputDecoration(
                         labelText: "Your Name", hasFloatingPlaceholder: true),
                   ),
@@ -89,6 +96,7 @@ class _SigningUpState extends State<SigningUp> {
                     height: 15,
                   ),
                   TextFormField(
+                    controller: inputEmail,
                     decoration: InputDecoration(
                         labelText: "Your Email", hasFloatingPlaceholder: true),
                   ),
@@ -96,6 +104,7 @@ class _SigningUpState extends State<SigningUp> {
                     height: 20,
                   ),
                   TextFormField(
+                    controller: inputPassword,
                     decoration: InputDecoration(
                         labelText: "Password", hasFloatingPlaceholder: true),
                   ),
@@ -123,12 +132,20 @@ class _SigningUpState extends State<SigningUp> {
                             left: 38, right: 38, top: 15, bottom: 15),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5)),
-                        onPressed: () {
-                          Navigator.push(
+                        onPressed: () async {
+                          User user = new User();
+                          user.name = inputName.text;
+                          user.email = inputEmail.text;
+                          user.password = inputPassword.text;
+                          
+                          if(user.email != "" || user.name != "" || user.password != "") {
+                            await rest.createUser(user: user);
+                            Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => Home(mockData)),
+                                builder: (context) => Login()),
                           );
+                          }
                         },
                       ),
                     ],
@@ -428,3 +445,5 @@ class _FBSignUpState extends State<FBSignUp> {
     );
   }
 }
+
+final rest = UserDataService();

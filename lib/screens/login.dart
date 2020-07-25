@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:map_project/Models/mock_Data.dart';
+import 'package:map_project/models/user_model.dart';
 import 'package:map_project/screens/Dashboard.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:map_project/screens/home.dart';
@@ -7,6 +8,7 @@ import 'package:map_project/screens/settings.dart';
 import 'package:map_project/screens/signup.dart';
 import 'package:map_project/screens/Journal.dart';
 import 'package:map_project/screens/todo.dart';
+import 'package:map_project/services/user_data_service.dart';
 
 Flushbar flush;
 bool _wasButtonClicked;
@@ -18,11 +20,29 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  Future<List<User>> _futureData;
+  List<User> users;
+
+  final inputEmail = TextEditingController();
+  final inputPassword = TextEditingController();
+
   TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
+
+  @override
+  void initState() {
+    super.initState();
+    _futureData = rest.getAllUsers();
+    loadUsers();
+  }
+
+  void loadUsers() async {
+    users = await _futureData;
+  }
 
   @override
   Widget build(BuildContext context) {
     final emailField = TextField(
+      controller: inputEmail,
       obscureText: false,
       style: style,
       decoration: InputDecoration(
@@ -32,6 +52,7 @@ class _LoginState extends State<Login> {
               OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
     );
     final passwordField = TextField(
+      controller: inputPassword,
       obscureText: true,
       style: style,
       decoration: InputDecoration(
@@ -48,7 +69,19 @@ class _LoginState extends State<Login> {
         minWidth: MediaQuery.of(context).size.width,
         padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
         onPressed: () {
-          navigateToSubPage2(context);
+          bool check = false;
+          for (User user in users) {
+            if (user.email == inputEmail.text &&
+                user.password == inputPassword.text) {
+              check = true;
+              print(user.id);
+              break;
+            }
+          }
+          if (check)
+            navigateToSubPage2(context);
+          else
+            print("Invalid email or password");
         },
         child: Text("Sign In",
             textAlign: TextAlign.center,
@@ -58,49 +91,53 @@ class _LoginState extends State<Login> {
     );
 
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/images/pic.png"),
-            fit: BoxFit.cover,
+      body: SingleChildScrollView(
+        child: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/images/pic.png"),
+              fit: BoxFit.cover,
+            ),
           ),
-        ),
-        padding: const EdgeInsets.all(36.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            SizedBox(
-              height: 100.0,
-            ),
-            SizedBox(height: 45.0),
-            emailField,
-            SizedBox(height: 25.0),
-            passwordField,
-            SizedBox(
-              height: 35.0,
-            ),
-            loginButon,
-            SizedBox(
-              height: 15.0,
-            ),
-            InkWell(
-              child: new Text('"Dont have a account ?" Sign Up here'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => SigningUp()),
-                );
-              },
-            ),
-          ],
+          padding: const EdgeInsets.all(36.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              SizedBox(
+                height: 100.0,
+              ),
+              SizedBox(height: 45.0),
+              emailField,
+              SizedBox(height: 25.0),
+              passwordField,
+              SizedBox(
+                height: 35.0,
+              ),
+              loginButon,
+              SizedBox(
+                height: 15.0,
+              ),
+              InkWell(
+                child: new Text('"Dont have a account ?" Sign Up here'),
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SigningUp()),
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 
   Future navigateToSubPage2(context) async {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => AfterSplash()));
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => AfterSplash()));
   }
 }
 
@@ -241,7 +278,7 @@ class AfterSplash extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Scaffold(
         body: Container(
-          height: MediaQuery.of(context).size.height,
+            height: MediaQuery.of(context).size.height,
             alignment: Alignment.center,
             child:
                 Column(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -344,3 +381,5 @@ class AfterSplash extends StatelessWidget {
             ])));
   }
 }
+
+final rest = UserDataService();
