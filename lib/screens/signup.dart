@@ -137,14 +137,15 @@ class _SigningUpState extends State<SigningUp> {
                           user.name = inputName.text;
                           user.email = inputEmail.text;
                           user.password = inputPassword.text;
-                          
-                          if(user.email != "" || user.name != "" || user.password != "") {
+
+                          if (user.email != "" ||
+                              user.name != "" ||
+                              user.password != "") {
                             await rest.createUser(user: user);
                             Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => Login()),
-                          );
+                              context,
+                              MaterialPageRoute(builder: (context) => Login()),
+                            );
                           }
                         },
                       ),

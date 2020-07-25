@@ -27,17 +27,18 @@ class _DashboardState extends State<Dashboard> {
               height: 500,
               width: 20,
               child: makeDashboardItem(
-                  "Budget" + widget.data.budget.toString(), Icons.attach_money),
+                  "Budget : " + widget.data.budget.toString(),
+                  Icons.attach_money),
             ),
             makeDashboardItem2(
-                "Cost" + widget.data.cost.toString(), Icons.shopping_basket)
+                "Cost : " + widget.data.cost.toString(), Icons.shopping_basket)
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-         await Navigator.push(
-        context, MaterialPageRoute(builder: (context) => SubPage2(widget.data)));
+          await Navigator.push(context,
+              MaterialPageRoute(builder: (context) => SubPage2(widget.data)));
         },
         child: Icon(Icons.add),
       ),

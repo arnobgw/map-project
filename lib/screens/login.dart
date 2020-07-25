@@ -84,8 +84,7 @@ class _LoginState extends State<Login> {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) =>
-                        AfterSplash(loggedUser)));
+                    builder: (context) => AfterSplash(loggedUser)));
           else
             print("Invalid email or password");
         },
@@ -173,7 +172,7 @@ class _SubPageState extends State<SubPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Re-Life'),
+        title: Text("Hi " + widget.data.name),
         backgroundColor: Colors.redAccent,
         actions: <Widget>[
           IconButton(
