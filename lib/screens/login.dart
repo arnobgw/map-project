@@ -210,8 +210,8 @@ class _SubPageState extends State<SubPage> {
         child: ListView(
           children: <Widget>[
             UserAccountsDrawerHeader(
-              accountName: Text("User"),
-              accountEmail: Text("user1@gmail.com"),
+              accountName: Text(widget.data.name),
+              accountEmail: Text(widget.data.email),
               currentAccountPicture: CircleAvatar(
                 backgroundColor:
                     Theme.of(context).platform == TargetPlatform.iOS
@@ -245,7 +245,7 @@ class _SubPageState extends State<SubPage> {
               onTap: () {
                 flush = Flushbar<bool>(
                   flushbarPosition: FlushbarPosition.TOP,
-                  title: "Hey User",
+                  title: "Hey " + widget.data.name,
                   message: "Have you added today's journal ?",
                   icon: Icon(
                     Icons.info_outline,
