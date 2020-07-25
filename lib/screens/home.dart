@@ -1,22 +1,59 @@
 import 'package:flutter/material.dart';
-import 'package:map_project/Models/mock_Data.dart';
-import 'package:map_project/models/todo.dart' as rd;
+import 'package:map_project/models/journal_model.dart';
+import 'package:map_project/models/user_model.dart';
 import 'package:map_project/screens/Dashboard.dart';
+import 'package:map_project/services/journal_data_service.dart';
 
 import 'ViewJournal.dart';
 
 class Home extends StatefulWidget {
-  Home(
-    List<rd.Todo> mockData,
-  );
+  final User data;
+  const Home(this.data);
 
   @override
   _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
+  final dataService = JournalDataService();
+  List<Journal> jorunalz;
+  Future<List<Journal>> _futureData;
+
+  @override
+  void initState() {
+    super.initState();
+    _futureData = dataService.getAllJournals();
+  }
+
   @override
   Widget build(BuildContext context) {
+    return FutureBuilder<List<Journal>>(
+        future: _futureData,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            jorunalz = snapshot.data;
+            return _buildScaffold();
+          }
+          return _buildFetchingDataScreen();
+        });
+  }
+
+  Scaffold _buildFetchingDataScreen() {
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            CircularProgressIndicator(),
+            SizedBox(height: 50),
+            Text('Fetching Data... Please wait'),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Scaffold _buildScaffold() {
     return Scaffold(
         body: Container(
             color: Colors.black,
@@ -28,17 +65,17 @@ class _HomeState extends State<Home> {
                     height: 300,
                     color: Colors.black,
                     child: ListView.separated(
-                      itemCount: mockData.length,
+                      itemCount: jorunalz.length,
                       separatorBuilder: (context, index) => Divider(
                         color: Colors.blueGrey,
                       ),
                       itemBuilder: (context, index) => ListTile(
                         title: Text(
-                          mockData[index].title,
+                          jorunalz[index].title,
                           style: TextStyle(color: Colors.white),
                         ),
                         subtitle: Text(
-                          " Short Description of the journal ",
+                          jorunalz[index].text,
                           style: TextStyle(color: Colors.grey),
                         ),
                         onTap: () {
@@ -76,7 +113,10 @@ class _HomeState extends State<Home> {
                             fontStyle: FontStyle.normal,
                             fontFamily: 'Lobster'),
                       )),
-                  makeDashboardItem4("1000", Icons.shopping_basket),
+                  makeDashboardItem4(
+                      "Total Money Left : " +
+                          (widget.data.budget - widget.data.cost).toString(),
+                      Icons.shopping_basket),
                 ],
               ),
             )));
@@ -97,8 +137,10 @@ class _HomeState extends State<Home> {
                   colors: [Colors.blue, Colors.red])),
           child: new InkWell(
             onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => Dashboard()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => Dashboard(widget.data)));
             },
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
