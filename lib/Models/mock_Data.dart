@@ -1,6 +1,4 @@
-import 'package:map_project/models/todo.dart';
-
-import 'task.dart';
+import 'package:map_project/Models/todo.dart';
 
 List<Todo> mockData = [
   Todo('Journal 1'),

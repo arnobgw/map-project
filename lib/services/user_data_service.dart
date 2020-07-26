@@ -1,5 +1,5 @@
 import 'rest_service.dart';
-import '../models/user_model.dart';
+import '../Models/user_model.dart';
 
 class UserDataService {
   static final UserDataService _instance = UserDataService._constructor();
