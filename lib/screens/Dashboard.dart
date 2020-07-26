@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:map_project/models/user_model.dart';
 import 'package:map_project/screens/financial.dart';
-import 'package:map_project/screens/settings.dart';
 import 'package:map_project/services/user_data_service.dart';
+
+import '../Models/user_model.dart';
 
 class Dashboard extends StatefulWidget {
   final User data;

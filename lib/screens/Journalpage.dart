@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:map_project/models/journal_model.dart';
 import 'package:map_project/services/journal_data_service.dart';
 
+import '../Models/user_model.dart';
+
 
 class Journals extends StatefulWidget {
-  Journals({Key key, this.title}) : super(key: key);
+  final User user;
 
-  final String title;
+  Journals(this.user) ;
   @override
   _Journals createState() => _Journals();
 }
@@ -59,11 +61,12 @@ class _Journals extends State<Journals> {
           // When the user presses the button, show an alert dialog containing
           // the text that the user has entered into the text field.
           onPressed: () async {
-            Journal x = new Journal();
+            Journal journal = new Journal();
 
-            x.title = myController2.text;
-            x.text = myController.text;
-            await dataService.createJournal(journal: x);
+            journal.userEmail = widget.user.email;
+            journal.title = myController2.text;
+            journal.text = myController.text;
+            await dataService.createJournal(journal: journal);
             return showDialog(
               context: context,
               builder: (context) {

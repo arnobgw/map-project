@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:map_project/Models/mock_Data.dart';
 import 'package:map_project/Models/user_model.dart';
 import 'package:map_project/screens/Dashboard.dart';
 import 'package:flushbar/flushbar.dart';
@@ -158,7 +157,7 @@ class _SubPageState extends State<SubPage> {
     // TODO: implement initState
     _children.add(Home(widget.data));
     _children.add(Dashboard(widget.data));
-    _children.add(Journals());
+    _children.add(Journals(widget.data));
     super.initState();
   }
 

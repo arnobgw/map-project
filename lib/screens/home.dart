@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:map_project/models/journal_model.dart';
-import 'package:map_project/models/user_model.dart';
 import 'package:map_project/screens/Dashboard.dart';
 import 'package:map_project/services/journal_data_service.dart';
 
+import '../Models/user_model.dart';
 import 'ViewJournal.dart';
 
 class Home extends StatefulWidget {
@@ -16,7 +16,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final dataService = JournalDataService();
-  List<Journal> jorunalz;
+  List<Journal> jorunalz = List();
   Future<List<Journal>> _futureData;
   String m;
   @override
@@ -31,7 +31,10 @@ class _HomeState extends State<Home> {
         future: _futureData,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            jorunalz = snapshot.data;
+            for (Journal journal in snapshot.data) {
+              if(journal.userEmail == widget.data.email)
+                jorunalz.add(journal);
+            }
             return _buildScaffold();
           }
           return _buildFetchingDataScreen();
@@ -86,9 +89,9 @@ class _HomeState extends State<Home> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => TaskListScreen()));
+                                      builder: (context) => TaskListScreen(index)));
                             },
-                            trailing: _buildDeleteButton(index))),
+                            trailing: _buildDeleteButton(jorunalz[index].id))),
                   ),
                   Container(
                       margin: new EdgeInsets.all(20.0),
@@ -167,7 +170,7 @@ class _HomeState extends State<Home> {
         ));
   }
 
-  Widget _buildDeleteButton(int index) {
+  Widget _buildDeleteButton(String index) {
     return IconButton(
       icon: Icon(
         Icons.delete_forever,

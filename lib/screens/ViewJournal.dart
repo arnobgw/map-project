@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:map_project/models/journal_model.dart';
-import 'package:map_project/models/user_model.dart';
-import 'package:map_project/screens/Dashboard.dart';
 import 'package:map_project/services/journal_data_service.dart';
 
 class TaskListScreen extends StatefulWidget {
