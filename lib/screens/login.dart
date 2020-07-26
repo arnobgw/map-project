@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:map_project/Models/mock_Data.dart';
-import 'package:map_project/models/user_model.dart';
+import 'package:map_project/Models/user_model.dart';
 import 'package:map_project/screens/Dashboard.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:map_project/screens/Journalpage.dart';
