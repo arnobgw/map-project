@@ -1,5 +1,5 @@
 import 'rest_service.dart';
-import '../models/todos_model.dart';
+import '../Models/todos_model.dart';
 
 class TodosDataService {
   static final TodosDataService _instance = TodosDataService._constructor();

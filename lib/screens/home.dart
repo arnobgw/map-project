@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:map_project/Models/mock_Data.dart';
-import 'package:map_project/models/todo.dart' as rd;
+import 'package:map_project/Models/todo.dart' as rd;
 import 'package:map_project/screens/Dashboard.dart';
 
 import 'ViewJournal.dart';
