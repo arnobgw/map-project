@@ -1,45 +1,87 @@
 import 'package:flutter/material.dart';
+import 'package:map_project/models/journal_model.dart';
+import 'package:map_project/models/user_model.dart';
+import 'package:map_project/screens/Dashboard.dart';
+import 'package:map_project/services/journal_data_service.dart';
 
 class TaskListScreen extends StatefulWidget {
+  final int data;
+  const TaskListScreen(this.data);
   @override
   _TaskListScreenState createState() => _TaskListScreenState();
 }
 
 class _TaskListScreenState extends State<TaskListScreen> {
+  final dataService = JournalDataService();
+  List<Journal> jorunalz;
+  Future<List<Journal>> _futureData;
+  String m;
+  @override
+  void initState() {
+    super.initState();
+    _futureData = dataService.getAllJournals();
+  }
+
   @override
   Widget build(BuildContext context) {
+    return FutureBuilder<List<Journal>>(
+        future: _futureData,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            jorunalz = snapshot.data;
+            return _buildScaffold();
+          }
+          return _buildFetchingDataScreen();
+        });
+  }
+
+  Scaffold _buildFetchingDataScreen() {
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            CircularProgressIndicator(),
+            SizedBox(height: 50),
+            Text('Fetching Data... Please wait'),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Scaffold _buildScaffold() {
     return Scaffold(
       appBar: AppBar(
-        leading: Container(),
-        title: Text("Journal"),
+        title: Text("Your Journal"),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Container(
-            color: Colors.black,
-            padding: EdgeInsets.all(35),
+            color: Colors.white,
+            padding: EdgeInsets.all(100),
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    "Journal Title",
+                    jorunalz[widget.data].title,
                     style: TextStyle(
                         fontSize: 20.0,
                         fontWeight: FontWeight.w300,
-                        color: Colors.white,
+                        color: Colors.black,
                         fontStyle: FontStyle.normal,
                         fontFamily: 'Lobster'),
                   ),
                   Container(
                       padding: EdgeInsets.all(10.0),
                       child: Text(
-                        "In following code segment after inspection we see that the things we are looking for , first elements are after what we will learn header , these elements are declared as ul as we can see from the website . So we will need to find ul’s . soup.news.fund(“ul”) does that for us . in the next line of code we declare the specific division we are looking for . Then we have find all the lists inside the ul , so we will use find.all operator to find them . Next we will encode the next in a desired format . Repeat the same process for course description .",
+                        jorunalz[widget.data].text,
                         textAlign: TextAlign.justify,
                         style: TextStyle(
-                            fontSize: 15.0,
+                            fontSize: 25.0,
                             fontWeight: FontWeight.w300,
-                            color: Colors.white,
+                            color: Colors.black,
                             fontStyle: FontStyle.italic,
                             fontFamily: 'Lobster'),
                       )),
@@ -51,7 +93,7 @@ class _TaskListScreenState extends State<TaskListScreen> {
                       style: TextStyle(
                           fontSize: 15.0,
                           fontWeight: FontWeight.w300,
-                          color: Colors.white,
+                          color: Colors.black,
                           fontStyle: FontStyle.italic,
                           fontFamily: 'Lobster'),
                     ),
@@ -59,11 +101,11 @@ class _TaskListScreenState extends State<TaskListScreen> {
                   Container(
                     padding: EdgeInsets.all(20),
                     child: Text(
-                      "Date  : " + "11-04-2020",
+                      "Date  : " + DateTime.now().toString(),
                       style: TextStyle(
                           fontSize: 15.0,
                           fontWeight: FontWeight.w300,
-                          color: Colors.white,
+                          color: Colors.black,
                           fontStyle: FontStyle.italic,
                           fontFamily: 'Lobster'),
                     ),

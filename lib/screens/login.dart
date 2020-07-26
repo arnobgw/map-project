@@ -3,10 +3,10 @@ import 'package:map_project/Models/mock_Data.dart';
 import 'package:map_project/Models/user_model.dart';
 import 'package:map_project/screens/Dashboard.dart';
 import 'package:flushbar/flushbar.dart';
+import 'package:map_project/screens/Journalpage.dart';
 import 'package:map_project/screens/home.dart';
 import 'package:map_project/screens/settings.dart';
 import 'package:map_project/screens/signup.dart';
-import 'package:map_project/screens/Journal.dart';
 import 'package:map_project/screens/todo.dart';
 import 'package:map_project/services/user_data_service.dart';
 
@@ -70,16 +70,21 @@ class _LoginState extends State<Login> {
         padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
         onPressed: () {
           bool check = false;
+          User loggedUser;
           for (User user in users) {
             if (user.email == inputEmail.text &&
                 user.password == inputPassword.text) {
               check = true;
+              loggedUser = user;
               print(user.id);
               break;
             }
           }
           if (check)
-            navigateToSubPage2(context);
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => AfterSplash(loggedUser)));
           else
             print("Invalid email or password");
         },
@@ -134,22 +139,28 @@ class _LoginState extends State<Login> {
       ),
     );
   }
-
-  Future navigateToSubPage2(context) async {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => AfterSplash()));
-  }
 }
 
 class SubPage extends StatefulWidget {
+  final User data;
+  SubPage(this.data);
+
   @override
   _SubPageState createState() => _SubPageState();
 }
 
 class _SubPageState extends State<SubPage> {
   int _currentIndex = 0;
+  final List<Widget> _children = [];
 
-  final List<Widget> _children = [Home(mockData), Dashboard(), Journal()];
+  @override
+  void initState() {
+    // TODO: implement initState
+    _children.add(Home(widget.data));
+    _children.add(Dashboard(widget.data));
+    _children.add(Journals());
+    super.initState();
+  }
 
   void onTabTapped(int index) {
     setState(() {
@@ -161,7 +172,7 @@ class _SubPageState extends State<SubPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Re-Life'),
+        title: Text("Hi " + widget.data.name),
         backgroundColor: Colors.redAccent,
         actions: <Widget>[
           IconButton(
@@ -199,8 +210,8 @@ class _SubPageState extends State<SubPage> {
         child: ListView(
           children: <Widget>[
             UserAccountsDrawerHeader(
-              accountName: Text("User"),
-              accountEmail: Text("user1@gmail.com"),
+              accountName: Text(widget.data.name),
+              accountEmail: Text(widget.data.email),
               currentAccountPicture: CircleAvatar(
                 backgroundColor:
                     Theme.of(context).platform == TargetPlatform.iOS
@@ -234,7 +245,7 @@ class _SubPageState extends State<SubPage> {
               onTap: () {
                 flush = Flushbar<bool>(
                   flushbarPosition: FlushbarPosition.TOP,
-                  title: "Hey User",
+                  title: "Hey " + widget.data.name,
                   message: "Have you added today's journal ?",
                   icon: Icon(
                     Icons.info_outline,
@@ -269,13 +280,14 @@ class _SubPageState extends State<SubPage> {
   }
 }
 
-Future navigateToSubPage3(context) async {
-  Navigator.push(context, MaterialPageRoute(builder: (context) => SubPage()));
-}
-
 class AfterSplash extends StatelessWidget {
+  final User data;
+  AfterSplash(this.data);
+
   @override
   Widget build(BuildContext context) {
+    User x = data;
+
     return new Scaffold(
         body: Container(
             height: MediaQuery.of(context).size.height,
@@ -372,7 +384,10 @@ class AfterSplash extends StatelessWidget {
                         child: Text("Get Started"),
                         textColor: Colors.white,
                         onPressed: () {
-                          navigateToSubPage3(context);
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SubPage(x)));
                         },
                         height: MediaQuery.of(context).size.height * 0.1,
                         minWidth: 500,

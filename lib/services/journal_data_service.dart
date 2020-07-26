@@ -11,7 +11,7 @@ class JournalDataService {
   final rest = RestService();
 
   Future<List<Journal>> getAllJournals() async {
-    final listJson = await rest.get('journals');
+    final listJson = await rest.get('journal');
 
     return (listJson as List)
         .map((itemJson) => Journal.fromJson(itemJson))
@@ -19,16 +19,16 @@ class JournalDataService {
   }
 
   Future deleteJournal({String id}) async {
-    await rest.delete('journals/$id');
+    await rest.delete('journal/$id');
   }
 
   Future<Journal> createJournal({Journal journal}) async {
-    final json = await rest.post('journals', data: journal);
+    final json = await rest.post('journal', data: journal);
     return Journal.fromJson(json);
   }
 
   Future<Journal> updateJournal({String id, Journal journal}) async {
-    final json = await rest.patch('journals/$id', data: journal);
+    final json = await rest.patch('journal/$id', data: journal);
     return Journal.fromJson(json);
   }
 }
