@@ -15,14 +15,22 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  final dataService = JournalDataService();
   List<Journal> jorunalz = List();
+  bool check = false;
+
   Future<List<Journal>> _futureData;
   String m;
+
   @override
   void initState() {
-    super.initState();
     _futureData = dataService.getAllJournals();
+    super.initState();
+  }
+
+  void update() {
+    setState(() {
+      _futureData = dataService.getAllJournals();
+    });
   }
 
   @override
@@ -31,10 +39,13 @@ class _HomeState extends State<Home> {
         future: _futureData,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            for (Journal journal in snapshot.data) {
-              if (journal.userEmail == widget.data.email) jorunalz.add(journal);
+            jorunalz = snapshot.data;
+            if (jorunalz.length > 0)
+              return _buildScaffold();
+            else {
+              check = true;
+              return _buildScaffold();
             }
-            return _buildScaffold();
           }
           return _buildFetchingDataScreen();
         });
@@ -76,30 +87,36 @@ class _HomeState extends State<Home> {
                     ),
                   ),
                   Container(
-                    height: 400,
+                    height: 200,
                     color: Colors.white,
-                    child: ListView.separated(
-                        itemCount: jorunalz.length,
-                        separatorBuilder: (context, index) => Divider(
+                    child: check
+                        ? Text("No Journal Posted Yet.")
+                        : ListView.separated(
+                            itemCount: jorunalz.length,
+                            separatorBuilder: (context, index) => Divider(
                               color: Colors.blueGrey,
                             ),
-                        itemBuilder: (context, index) => ListTile(
-                            title: Text(
-                              jorunalz[index].title,
-                              style: TextStyle(color: Colors.black),
-                            ),
-                            subtitle: Text(
-                              jorunalz[index].text,
-                              style: TextStyle(color: Colors.black38),
-                            ),
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          TaskListScreen(index)));
-                            },
-                            trailing: _buildDeleteButton(jorunalz[index].id))),
+                            itemBuilder: (context, index) => ListTile(
+                                title: Text(
+                                  jorunalz[index].title,
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                                subtitle: Text(
+                                  "by ${jorunalz[index].userName}",
+                                  style: TextStyle(color: Colors.black38),
+                                ),
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              TaskListScreen(index)));
+                                },
+                                trailing: jorunalz[index].userEmail ==
+                                        widget.data.email
+                                    ? _buildDeleteButton(jorunalz[index].id)
+                                    : null),
+                          ),
                   ),
                   Container(
                       margin: new EdgeInsets.all(3.0),
@@ -181,9 +198,11 @@ class _HomeState extends State<Home> {
         size: 35,
       ),
       onPressed: () async {
-        dataService.deleteJournal(id: index.toString());
-        setState(() {});
+        await dataService.deleteJournal(id: index);
+        update();
       },
     );
   }
 }
+
+final dataService = JournalDataService();

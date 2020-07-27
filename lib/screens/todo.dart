@@ -1,63 +1,91 @@
 import 'package:flutter/material.dart';
+import 'package:map_project/Models/user_model.dart';
 import '../Models/todos_model.dart';
 import '../services/todos_data_service.dart';
 
 class TodoList extends StatefulWidget {
+  final User user;
+  const TodoList(this.user);
+
   @override
   createState() => new TodoListState();
 }
 
 class TodoListState extends State<TodoList> {
-  List<Todos> _todoItems = [];
+  List<Todos> _todoItems;
   TodosDataService _service = TodosDataService();
-  // Timer _timer;
-  // int _start = 10;
 
-  // This will be called each time the + button is pressed
+  Future<List<Todos>> _futureData;
 
   Widget _buildTodoList() {
     return new ListView.builder(
       itemCount: _todoItems.length,
       itemBuilder: (context, index) {
-        return _buildTodoItem(_todoItems[index]);
+        return _todoItems[index].userEmail == widget.user.email
+            ? _buildTodoItem(_todoItems[index])
+            : SizedBox.shrink();
       },
+    );
+  }
+
+  Widget temp(String t) {
+    return Text(
+      "$t",
+      style: TextStyle(
+        color: Colors.white,
+      ),
     );
   }
 
   Widget _buildTodoItem(Todos todos) {
     return ListTile(
-        title: GestureDetector(
-          onTap: () {
-            todos.completed = !todos.completed;
-
-            _service.updateTodos(id: todos.id, todo: todos);
-          },
-          child: Text(
-            todos.task,
-            style: TextStyle(
-                color: Colors.grey,
-                wordSpacing: 2,
-                decoration: todos.completed
-                    ? TextDecoration.lineThrough
-                    : TextDecoration.none),
-            textAlign: TextAlign.center,
-          ),
+      title: GestureDetector(
+        onTap: () async {
+          todos.completed = !todos.completed;
+          await _service.updateTodos(id: todos.id, todo: todos);
+          update();
+        },
+        child: Text(
+          todos.task,
+          style: TextStyle(
+              color: Colors.grey,
+              wordSpacing: 2,
+              decoration: todos.completed
+                  ? TextDecoration.lineThrough
+                  : TextDecoration.none),
+          textAlign: TextAlign.center,
         ),
-        onTap: () => _promptRemoveTodoItem(todos.id));
+        onLongPress: () async {
+          _promptRemoveTodoItem(todos.id, todos.task);
+        },
+      ),
+    );
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    _futureData = _service.getAllTodos();
+    super.initState();
+  }
+
+  void update() {
+    setState(() {
+      _futureData = _service.getAllTodos();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       body: FutureBuilder<Object>(
-          future: _service.getAllTodos(),
+          future: _futureData,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               _todoItems = snapshot.data;
-
               return _buildTodoList();
             }
-            return CircularProgressIndicator();
+            return Center(child: CircularProgressIndicator());
           }),
       backgroundColor: Colors.black,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -72,20 +100,15 @@ class TodoListState extends State<TodoList> {
     );
   }
 
-  void _removeTodoItem(String id) async {
-    await _service.deleteTodos(id: id);
-    setState(() => _todoItems.removeWhere((element) => element.id == id));
-  }
-
 // Show an alert dialog asking the user to confirm that the task is done
-  void _promptRemoveTodoItem(String id) {
+  void _promptRemoveTodoItem(String id, String task) {
     showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
               backgroundColor: Colors.black,
               title: Text(
-                'Mark "${_todoItems.where((element) => element.id == id)}" as done?',
+                'Delete "$task"?',
                 style: TextStyle(color: Colors.grey),
               ),
               actions: <Widget>[
@@ -97,26 +120,18 @@ class TodoListState extends State<TodoList> {
                   onPressed: () => Navigator.of(context).pop(),
                 ),
                 FlatButton(
-                    child: Text(
-                      'MARK AS DONE',
-                      style: TextStyle(color: Colors.grey),
-                    ),
-                    onPressed: () {
-                      _removeTodoItem(id);
-                      Navigator.of(context).pop(setState(() {}));
-                    })
+                  child: Text(
+                    'MARK AS DONE',
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                  onPressed: () async {
+                    await _service.deleteTodos(id: id);
+                    update();
+                    Navigator.pop(context);
+                  },
+                )
               ]);
         });
-  }
-
-  void _addTodoItem(String task) {
-    // Only add the task if the user actually entered something
-    if (task != null && task.isNotEmpty) {
-      Todos todo =
-          Todos(completed: false, task: task, userEmail: 'hi@email.com');
-      _service.createTodos(todo: todo);
-      setState(() => _todoItems.add(todo));
-    }
   }
 
   void _pushAddTodoScreen() {
@@ -134,10 +149,18 @@ class TodoListState extends State<TodoList> {
           textAlign: TextAlign.center,
           style: TextStyle(color: Colors.grey),
           autofocus: true,
-          onSubmitted: (val) {
-            _addTodoItem(val);
-            Navigator.pop(context); // Close the add todo screen
+          onSubmitted: (val) async {
+            // Only add the task if the user actually entered something
+            if (val != null && val.isNotEmpty) {
+              Todos todo = Todos(
+                  completed: false, task: val, userEmail: widget.user.email);
+              await _service.createTodos(todo: todo);
+              Navigator.pop(context);
+              update();
+            }
           },
+          // Close the add todo screen
+
           decoration: new InputDecoration(
               fillColor: Colors.grey,
               hintText: 'Enter something to do...',

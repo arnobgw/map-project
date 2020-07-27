@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_echarts/flutter_echarts.dart';
-import 'package:map_project/screens/settings.dart';
 
 class Financial extends StatefulWidget {
   Financial({Key key}) : super(key: key);
@@ -20,8 +19,7 @@ class _FinancialState extends State<Financial> {
               color: Colors.white,
               icon: Icon(Icons.settings),
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Setting()));
+                
               },
             ),
           ],

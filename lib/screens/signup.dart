@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:map_project/Models/mock_Data.dart';
 import 'package:map_project/Models/user_model.dart';
-import 'package:map_project/screens/home.dart';
 import 'package:map_project/screens/login.dart';
 import 'package:map_project/services/user_data_service.dart';
 
@@ -137,6 +135,8 @@ class _SigningUpState extends State<SigningUp> {
                           user.name = inputName.text;
                           user.email = inputEmail.text;
                           user.password = inputPassword.text;
+                          user.cost = 0;
+                          user.budget = 0;
 
                           if (user.email != "" ||
                               user.name != "" ||

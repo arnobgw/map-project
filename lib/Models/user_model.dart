@@ -17,5 +17,5 @@ class User {
             budget: json['budget']);
 
   Map<String, dynamic> toJson() =>
-      {'id': id, 'name': name, 'email': email, 'password': password, 'cost': cost};
+      {'id': id, 'name': name, 'email': email, 'password': password, 'cost': cost, 'budget': budget};
 }

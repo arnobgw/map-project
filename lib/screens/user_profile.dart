@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:map_project/screens/settings.dart';
+import 'package:map_project/Models/user_model.dart';
+import 'package:map_project/services/user_data_service.dart';
 
 class MyProfile extends StatefulWidget {
   MyProfile({Key key}) : super(key: key);
@@ -46,10 +47,6 @@ class _MyProfileState extends State<MyProfile> {
               new IconButton(
                 icon: actionIcon,
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Setting()),
-                  );
                 },
               ),
             ],
@@ -112,11 +109,27 @@ class _MyProfileState extends State<MyProfile> {
 }
 
 class EditProfile extends StatefulWidget {
+  final User user;
+  EditProfile(this.user);
+
   @override
   _EditProfileState createState() => _EditProfileState();
 }
 
 class _EditProfileState extends State<EditProfile> {
+  final userEmail = TextEditingController();
+  final userPassword = TextEditingController();
+  final userName = TextEditingController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    userEmail.text = widget.user.email;
+    userName.text = widget.user.name;
+    userPassword.text = widget.user.password;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -132,13 +145,15 @@ class _EditProfileState extends State<EditProfile> {
             child: Image.asset("assets/images/profile.png"),
           ),
           TextField(
-            obscureText: true,
+            controller: userName,
+            obscureText: false,
             decoration: InputDecoration(
               border: OutlineInputBorder(),
               labelText: 'Username',
             ),
           ),
-          TextField(
+          TextField(            
+            controller: userPassword,
             obscureText: true,
             decoration: InputDecoration(
               border: OutlineInputBorder(),
@@ -146,7 +161,8 @@ class _EditProfileState extends State<EditProfile> {
             ),
           ),
           TextField(
-            obscureText: true,
+            controller: userEmail,
+            obscureText: false,
             decoration: InputDecoration(
               border: OutlineInputBorder(),
               labelText: 'Email',
@@ -154,11 +170,14 @@ class _EditProfileState extends State<EditProfile> {
           ),
           FlatButton(
             color: Colors.orange[900],
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Setting()),
-              );
+            onPressed: () async {
+              User user = widget.user;
+              user.name = userName.text;
+              user.email = userEmail.text;
+              user.password = userPassword.text;
+
+              await dataService.updateUser(id: user.id, user: user);
+              Navigator.pop(context);
             },
             child: Text('Save'),
           ),
@@ -167,3 +186,5 @@ class _EditProfileState extends State<EditProfile> {
     );
   }
 }
+
+final dataService = UserDataService();

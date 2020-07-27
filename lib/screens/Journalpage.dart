@@ -61,12 +61,14 @@ class _Journals extends State<Journals> {
           // the text that the user has entered into the text field.
           onPressed: () async {
             Journal journal = new Journal();
-
             journal.userEmail = widget.user.email;
+            journal.userName = widget.user.name;
             journal.title = myController2.text;
             journal.text = myController.text;
+
             await dataService.createJournal(journal: journal);
             Navigator.pop(context);
+            
             return showDialog(
               context: context,
               builder: (context) {

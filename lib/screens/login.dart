@@ -4,9 +4,9 @@ import 'package:map_project/screens/Dashboard.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:map_project/screens/Journalpage.dart';
 import 'package:map_project/screens/home.dart';
-import 'package:map_project/screens/settings.dart';
 import 'package:map_project/screens/signup.dart';
 import 'package:map_project/screens/todo.dart';
+import 'package:map_project/screens/user_profile.dart';
 import 'package:map_project/services/user_data_service.dart';
 
 Flushbar flush;
@@ -176,10 +176,10 @@ class _SubPageState extends State<SubPage> {
         actions: <Widget>[
           IconButton(
             color: Colors.white,
-            icon: Icon(Icons.list),
+            icon: Icon(Icons.queue),
             onPressed: () {
               Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => TodoList()));
+                  context, MaterialPageRoute(builder: (context) => TodoList(widget.data)));
             },
           ),
         ],
@@ -223,11 +223,16 @@ class _SubPageState extends State<SubPage> {
               ),
             ),
             ListTile(
-              title: Text("Settings"),
+              title: Text("Edit Profile"),
               trailing: Icon(Icons.arrow_forward),
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Setting()));
+              onTap: () async {
+                await Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => EditProfile(widget.data)),
+                );
+                setState(() {
+                  
+                });
               },
             ),
             ListTile(
@@ -245,6 +250,7 @@ class _SubPageState extends State<SubPage> {
                 flush = Flushbar<bool>(
                   flushbarPosition: FlushbarPosition.TOP,
                   title: "Hey " + widget.data.name,
+                  duration: Duration(seconds: 3),
                   message: "Have you added today's journal ?",
                   icon: Icon(
                     Icons.info_outline,
@@ -252,7 +258,9 @@ class _SubPageState extends State<SubPage> {
                   ),
                   mainButton: FlatButton(
                     onPressed: () {
-                      flush.dismiss(true); // result = true
+                      setState(() {
+                        _currentIndex = 2;
+                      }); // result = true
                     },
                     child: Text(
                       "ADD",
