@@ -4,11 +4,10 @@ import 'package:map_project/services/journal_data_service.dart';
 
 import '../Models/user_model.dart';
 
-
 class Journals extends StatefulWidget {
   final User user;
 
-  Journals(this.user) ;
+  Journals(this.user);
   @override
   _Journals createState() => _Journals();
 }
@@ -67,6 +66,7 @@ class _Journals extends State<Journals> {
             journal.title = myController2.text;
             journal.text = myController.text;
             await dataService.createJournal(journal: journal);
+            Navigator.pop(context);
             return showDialog(
               context: context,
               builder: (context) {
@@ -74,7 +74,7 @@ class _Journals extends State<Journals> {
                   // Retrieve the text the that user has entered by using the
                   // TextEditingController.
 
-                  content: Text(myController.text),
+                  content: Text("Jorunal Added "),
                 );
               },
             );

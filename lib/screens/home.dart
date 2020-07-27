@@ -32,8 +32,7 @@ class _HomeState extends State<Home> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             for (Journal journal in snapshot.data) {
-              if(journal.userEmail == widget.data.email)
-                jorunalz.add(journal);
+              if (journal.userEmail == widget.data.email) jorunalz.add(journal);
             }
             return _buildScaffold();
           }
@@ -42,10 +41,6 @@ class _HomeState extends State<Home> {
   }
 
   Scaffold _buildFetchingDataScreen() {
-    if (widget.data.cost > widget.data.budget) {
-      m = "You are not doing well";
-    } else
-      m = "You are doing well";
     return Scaffold(
       body: Center(
         child: Column(
@@ -61,16 +56,28 @@ class _HomeState extends State<Home> {
   }
 
   Scaffold _buildScaffold() {
+    if (widget.data.cost > widget.data.budget) {
+      m = "Not doing well";
+    } else
+      m = "Doing Well";
     return Scaffold(
         body: Container(
-            color: Colors.black,
+            color: Colors.white,
             child: SingleChildScrollView(
               scrollDirection: Axis.vertical,
               child: Column(
                 children: <Widget>[
+                  Text(
+                    'Journals',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                      fontSize: 40,
+                      color: Colors.grey[700],
+                    ),
+                  ),
                   Container(
-                    height: 300,
-                    color: Colors.black,
+                    height: 400,
+                    color: Colors.white,
                     child: ListView.separated(
                         itemCount: jorunalz.length,
                         separatorBuilder: (context, index) => Divider(
@@ -79,32 +86,33 @@ class _HomeState extends State<Home> {
                         itemBuilder: (context, index) => ListTile(
                             title: Text(
                               jorunalz[index].title,
-                              style: TextStyle(color: Colors.white),
+                              style: TextStyle(color: Colors.black),
                             ),
                             subtitle: Text(
                               jorunalz[index].text,
-                              style: TextStyle(color: Colors.grey),
+                              style: TextStyle(color: Colors.black38),
                             ),
                             onTap: () {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => TaskListScreen(index)));
+                                      builder: (context) =>
+                                          TaskListScreen(index)));
                             },
                             trailing: _buildDeleteButton(jorunalz[index].id))),
                   ),
                   Container(
-                      margin: new EdgeInsets.all(20.0),
-                      width: 500,
+                      margin: new EdgeInsets.all(3.0),
+                      width: 400,
                       height: 100,
-                      padding: EdgeInsets.all(15.0),
+                      padding: EdgeInsets.all(30.0),
                       decoration: BoxDecoration(
                           gradient: LinearGradient(
                               begin: Alignment.topRight,
                               end: Alignment.bottomLeft,
-                              colors: [Colors.redAccent, Colors.green])),
+                              colors: [Colors.black, Colors.black45])),
                       child: Text(
-                        m,
+                        "Happiness : " + m,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontSize: 25.0,
@@ -128,7 +136,7 @@ class _HomeState extends State<Home> {
           borderRadius: BorderRadius.circular(20.0),
         ),
         elevation: 3.0,
-        margin: new EdgeInsets.all(20.0),
+        margin: new EdgeInsets.all(3.0),
         child: Container(
           decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -147,11 +155,6 @@ class _HomeState extends State<Home> {
               mainAxisSize: MainAxisSize.min,
               verticalDirection: VerticalDirection.down,
               children: <Widget>[
-                SizedBox(height: 30.0),
-                new Center(
-                  child: new Text("Tap to see more",
-                      style: new TextStyle(fontSize: 5.0, color: Colors.white)),
-                ),
                 SizedBox(height: 60.0),
                 new Center(
                   child: new Text(title,
@@ -161,7 +164,7 @@ class _HomeState extends State<Home> {
                 Center(
                     child: Icon(
                   icon,
-                  size: 90.0,
+                  size: 60.0,
                   color: Colors.white,
                 )),
               ],

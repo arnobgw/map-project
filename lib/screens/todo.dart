@@ -90,11 +90,12 @@ class TodoListState extends State<TodoList> {
               ),
               actions: <Widget>[
                 FlatButton(
-                    child: Text(
-                      'CANCEL',
-                      style: TextStyle(color: Colors.grey),
-                    ),
-                    onPressed: () => Navigator.of(context).pop()),
+                  child: Text(
+                    'CANCEL',
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
                 FlatButton(
                     child: Text(
                       'MARK AS DONE',
@@ -102,7 +103,7 @@ class TodoListState extends State<TodoList> {
                     ),
                     onPressed: () {
                       _removeTodoItem(id);
-                      Navigator.of(context).pop();
+                      Navigator.of(context).pop(setState(() {}));
                     })
               ]);
         });
