@@ -18,5 +18,6 @@ Statistical view: Our application will give a statistical estimate of the users 
 ### Video Link
 YouTube: https://youtu.be/1T06tqEWLsk
 
-### Git Repository Link
-GitHub: https://github.com/arnobgw/map-project.git
+### GitHub Repository Link
+Frontend: https://github.com/arnobgw/map-project.git
+Backend: https://github.com/arnobgw/map-project-backend.git
