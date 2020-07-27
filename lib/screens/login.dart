@@ -171,7 +171,7 @@ class _SubPageState extends State<SubPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Hi " + widget.data.name),
+        title: Text("Hi " + widget.data.name + " , This is your day"),
         backgroundColor: Colors.redAccent,
         actions: <Widget>[
           IconButton(
